@@ -1,5 +1,5 @@
 experiment/*
-pomdp/dev/*
+pypomdp/dev/*
 *.pkl
 *.pyc
 *.ipynb

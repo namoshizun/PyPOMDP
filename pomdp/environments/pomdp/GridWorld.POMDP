@@ -1,0 +1,82 @@
+# A 1D grid world where the agent can only move left or right. The rewarding 
+# states are the two edges in the grid. Invalid moves such as jumping off the edge results in heavy punishment
+
+discount: 0.85
+values: reward
+states: 8
+actions: left right halt
+costs: 1 1 0.25
+observations: 8
+init_state: 3
+
+T: halt
+identity
+
+T: left : 0 : 0 1.0
+T: left : 1 : 0 1.0
+T: left : 2 : 1 1.0
+T: left : 3 : 2 1.0
+T: left : 4 : 3 1.0
+T: left : 5 : 4 1.0
+T: left : 6 : 5 1.0
+T: left : 7 : 6 1.0
+
+T: right : 0 : 1 1.0
+T: right : 1 : 2 1.0
+T: right : 2 : 3 1.0
+T: right : 3 : 4 1.0
+T: right : 4 : 5 1.0
+T: right : 5 : 6 1.0
+T: right : 6 : 7 1.0
+T: right : 7 : 7 1.0
+
+
+O: left
+0.9 0.1 0 0 0 0 0 0
+0.075 0.85 0.075 0 0 0 0 0
+0 0.075 0.85 0.075 0 0 0 0 
+0 0 0.075 0.85 0.075 0 0 0
+0 0 0 0.075 0.85 0.075 0 0
+0 0 0 0 0.075 0.85 0.075 0
+0 0 0 0 0 0.075 0.85 0.075
+0 0 0 0 0 0 0.1 0.9
+
+O: right
+0.9 0.1 0 0 0 0 0 0
+0.075 0.85 0.075 0 0 0 0 0
+0 0.075 0.85 0.075 0 0 0 0 
+0 0 0.075 0.85 0.075 0 0 0
+0 0 0 0.075 0.85 0.075 0 0
+0 0 0 0 0.075 0.85 0.075 0
+0 0 0 0 0 0.075 0.85 0.075
+0 0 0 0 0 0 0.1 0.9
+
+O: halt
+identity
+
+R: left : 0 : * : * -10
+R: left : 1 : * : * 50
+R: left : 2 : * : * -1
+R: left : 3 : * : * -1
+R: left : 4 : * : * -1
+R: left : 5 : * : * -1
+R: left : 6 : * : * -1
+R: left : 7 : * : * -1
+
+R: right : 0 : * : * -1
+R: right : 1 : * : * -1
+R: right : 2 : * : * -1
+R: right : 3 : * : * -1
+R: right : 4 : * : * -1
+R: right : 5 : * : * -1
+R: right : 6 : * : * 300
+R: right : 7 : * : * -10
+
+R: halt : 0 : * : * 50
+R: halt : 1 : * : * 0
+R: halt : 2 : * : * 0
+R: halt : 3 : * : * 0
+R: halt : 4 : * : * 0
+R: halt : 5 : * : * 0
+R: halt : 6 : * : * 0
+R: halt : 7 : * : * 300

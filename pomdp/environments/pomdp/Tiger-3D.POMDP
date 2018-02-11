@@ -1,0 +1,86 @@
+# This is the tiger problem of AAAI paper fame in the new pomdp
+# format.  This format is still experimental and subject to change
+
+discount: 0.75
+values: reward
+states: tiger-left tiger-mid tiger-right
+actions: listen-left listen-mid listen-right open-left open-mid open-right halt
+costs: 1 1 1 1 1 1 0.25
+observations: tiger-left tiger-mid tiger-right
+
+T: listen-left
+identity
+
+T: listen-mid
+identity
+
+T: listen-right
+identity
+
+T: halt
+uniform
+
+T: open-left
+uniform
+
+T: open-mid
+uniform
+
+T: open-right
+uniform
+
+O: listen-left
+0.85 0.1 0.05
+0.25 0.65 0.1
+0.1 0.35 0.55
+
+O: listen-mid
+0.65 0.25 0.1
+0.075 0.85 0.075
+0.1 0.25 0.65
+
+O: listen-right
+0.55 0.35 0.1
+0.1 0.65 0.25
+0.05 0.1 0.85
+
+O: open-left
+uniform
+
+O: open-mid
+uniform
+
+O: open-right
+uniform
+
+O: halt
+uniform
+
+R: listen-left : tiger-left : * : * -1
+R: listen-left : tiger-mid : * : * -1
+R: listen-left : tiger-right : * : * -1
+
+R: listen-mid : tiger-left : * : * -1
+R: listen-mid : tiger-mid : * : * -1
+R: listen-mid : tiger-right : * : * -1
+
+R: listen-right : tiger-left : * : * -1
+R: listen-right : tiger-mid : * : * -1
+R: listen-right : tiger-right : * : * -1
+
+R: open-left : tiger-left : * : * -100
+R: open-left : tiger-right : * : * 10
+R: open-left : tiger-mid : * : * 10
+
+R: open-mid : tiger-mid : * : * -100
+R: open-mid : tiger-left : * : * 10
+R: open-mid : tiger-right : * : * 10
+
+R: open-right : tiger-right : * : * -100
+R: open-right : tiger-left : * : * 10 
+R: open-right : tiger-mid : * : * 10
+
+R: halt : tiger-left : * : * 0
+R: halt : tiger-mid : * : * 0
+R: halt : tiger-right : * : * 0
+

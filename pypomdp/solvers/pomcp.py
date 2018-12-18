@@ -46,11 +46,14 @@ class POMCP(Solver):
     def add_configs(self, budget=float('inf'), initial_belief=None, simulation_time=0.5,
                     max_particles=350, reinvigorated_particles_ratio=0.1, utility_fn='ucb1', C=0.5):
         # acquaire utility function to choose the most desirable action to try
-        self.utility_fn = {
-            'ucb1': UtilityFunction.ucb1(C),
-            'mab_bv1': UtilityFunction.mab_bv1(min(self.model.costs), C),
-            'sa_ucb': UtilityFunction.sa_ucb(C)
-        }[utility_fn]
+        if utility_fn == 'ucb1':
+            self.utility_fn = UtilityFunction.ucb1(C)
+        elif utility_fn == 'sa_ucb':
+            self.utility_fn = UtilityFunction.sa_ucb(C)
+        elif utility_fn == 'mab_bv1':
+            if self.model.costs is None:
+                raise ValueError('Must specify action costs if utility function is MAB_BV1')
+            self.utility_fn = UtilityFunction.mab_bv1(min(self.model.costs), C)
 
         # other configs
         self.simulation_time = simulation_time

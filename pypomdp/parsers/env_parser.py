@@ -161,13 +161,12 @@ class PomdpParser:
                 # %f %f ... %f
                 # ...
                 # %f %f ... %f
-                # TODO: rollback
-                for j in range(len(self.states)):
+                for j, sj in enumerate(self.states):
                     probs = next_line.split()
                     assert len(probs) == len(self.states)
-                    for k in range(len(probs)):
+                    for k, sk in enumerate(self.states):
                         prob = float(probs[k])
-                        self.T[(action, j, k)] = prob
+                        self.T[(action, sj, sk)] = prob
                     next_line = self.contents[i+2+j]
                 return i+1+len(self.states)
         else:

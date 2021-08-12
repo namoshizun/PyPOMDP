@@ -1,7 +1,8 @@
+import random
+import time
 import numpy as np
-import math, random, time, sys
 
-from numba import jit, jitclass
+from numba import jit
 from collections import Counter
 from functools import wraps
 
@@ -11,9 +12,6 @@ random.seed()
 MAX = np.inf
 
 def timeit(comment=None):
-    """
-        auto establish and close mongo connection
-    """
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
@@ -48,12 +46,16 @@ def elem_distribution(arr):
     _sum = sum(cnt.values())
     return {k: v / _sum for k, v in cnt.items()}
 
+
+def rand_choice(candidates):
+    return np.random.choice(candidates)
+
 ######################################
 # High performance utility functions #
 ######################################s
 @jit
 def round(num, dec_places=2):
-    return float('%.{}f'.format(dec_places) % num)
+    return np.round(num, dec_places)
 
 
 @jit
@@ -61,11 +63,6 @@ def rand(n=1, seed=None):
     if seed:
         np.random.seed(seed)
     return np.random.rand() * n
-
-
-@jit
-def rand_choice(candidates):
-    return random.choice(candidates)
 
 
 @jit
@@ -82,4 +79,3 @@ def ucb(N_h, N_ha):
     if N_ha == 0:
         return MAX
     return np.sqrt(np.log(N_h) / N_ha)  # Upper-Confidence-Bound
-

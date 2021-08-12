@@ -98,6 +98,7 @@ class PomdpRunner:
 
             if budget <= 0:
                 log.info('Budget spent.')
+                break
 
 
         log.info('{} games played. Toal reward = {}'.format(i + 1, total_rewards))

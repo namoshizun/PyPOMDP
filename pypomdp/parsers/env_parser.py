@@ -184,15 +184,14 @@ class PomdpParser:
         if len(pieces) == 4:
             # case 1: O: <action> : <next-state> : <obs> %f
             next_state, obs, prob = pieces[1], pieces[2], float(pieces[3])
-            self.Z[(action, next_state, obs)] = prob
+            self.Z[(action, next_state, obs)] = float(prob)
             return i + 1
         elif len(pieces) == 3:
             # case 2: O: <action> : <next-state> : <obs>
             # %f
             next_state, obs = pieces[1], pieces[2]
             next_line = self.contents[i+1]
-            prob = float(next_line)
-            self.Z[(action, next_state, obs)] = prob
+            self.Z[(action, next_state, obs)] = float(next_line)
             return i + 2
         elif len(pieces) == 2:
             # case 3: O: <action> : <next-state>

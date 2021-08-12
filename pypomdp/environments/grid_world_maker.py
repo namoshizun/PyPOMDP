@@ -17,7 +17,7 @@ class Board:
         for i in range(self.h):
             for j in range(self.w):
                 visitor_fn(i, j)
-    
+
     def adjacent_cells(self, i, j):
         cells = []
         for y, x in [(i+dy, j+dx) for dy in (-1,0,1) for dx in (-1,0,1) if dx != 0 or dy != 0]:

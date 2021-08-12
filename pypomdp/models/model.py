@@ -31,7 +31,7 @@ class Model(object):
 
     @property
     def num_actions(self):
-        return len(self.states)
+        return len(self.actions)
 
     def gen_particles(self, n, prob=None):
         if prob is None:
